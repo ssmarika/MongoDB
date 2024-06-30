@@ -100,4 +100,4 @@ use("kec-crud");
 // if data is found it is updated if not it is inserted
 // when upsert true
 
-// db.student.find();
+db.student.find();
