@@ -75,8 +75,21 @@ use("kec-crud");
 
 // ? find students whose score is greater than 80 and less than 85
 
-db.scores.find({ scores: { $elemMatch: { $gt: 80, $lt: 85 } } });
+// ?db.scores.find({ scores: { $elemMatch: { $gt: 80, $lt: 85 } } });
 // atleast one element that completely matches the entire condition completely
 // in this example suvam's score 82 matches the entire condition completely
 // and could be used but using and 1st condition yeuta le ra 2nd contion arko le garcha so in this case we use elemMAtch
-// when we use elenMatch both the condition is to be satisfied by one element
+// when we use elenMatch both the condition is to be satisfied by addone element
+
+// db.employee.insertMany([
+//     { name: "Utsarga", income: 800, expense: 600 },
+//     { name: "Smriti", income: 900, expense: 1100 },
+//     { name: "Samrat", income: 1100, expense: 700 },
+//   ]);
+
+// ? find employee whose expense is greater then income
+
+// db.employee.find({ $elemMatch: { expense: { $gt: "$income" } } });
+
+// ? find employee whose income is less than 850
+db.employee.find({ income: { $gt: 850 } });
