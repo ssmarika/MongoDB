@@ -24,7 +24,5 @@ use("kec-crud");
 // to extract the data $ is used to signify that it is a variable data
 
 // * $ne
-
 // db.movies.find({ id: { $ne: 1 } });
-
-db.movies.find({ id: { $not: { $eq: 1 } } }, { id: 1, name: 1 });
+// db.movies.find({ id: { $not: { $eq: 1 } } }, { id: 1, name: 1 });
