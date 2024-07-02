@@ -23,3 +23,4 @@ db.employee.find({ $expr: { $gt: ["$expense", "$income"] } });
 
 // ? find employee whose income is less than 850
 // db.employee.find({ income: { $gt: 850 } });
+db.employee.find({ $expr: { $gt: ["$income", 850] } });
