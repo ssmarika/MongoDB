@@ -79,17 +79,4 @@ use("kec-crud");
 // atleast one element that completely matches the entire condition completely
 // in this example suvam's score 82 matches the entire condition completely
 // and could be used but using and 1st condition yeuta le ra 2nd contion arko le garcha so in this case we use elemMAtch
-// when we use elenMatch both the condition is to be satisfied by addone element
-
-// db.employee.insertMany([
-//     { name: "Utsarga", income: 800, expense: 600 },
-//     { name: "Smriti", income: 900, expense: 1100 },
-//     { name: "Samrat", income: 1100, expense: 700 },
-//   ]);
-
-// ? find employee whose expense is greater then income
-
-// db.employee.find({ $elemMatch: { expense: { $gt: "$income" } } });
-
-// ? find employee whose income is less than 850
-db.employee.find({ income: { $gt: 850 } });
+// when we use elemMatch both the condition is to be satisfied by addone element
