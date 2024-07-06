@@ -85,11 +85,20 @@ use("kec-crud");
 // ? find movies whose rating is greater than 8
 // ?and id is sorted in ascending order
 
-db.movies.aggregate([
-  { $match: { "rating.average": { $gt: 8 } } },
-  { $sort: { id: 1 } },
-  { $limit: 5 },
-  { $project: { _id: 0, id: 1, name: 1, rating: "$rating.average" } },
-]);
+// db.movies.aggregate([
+//   { $match: { "rating.average": { $gt: 8 } } },
+//   { $sort: { id: 1 } },
+//   { $limit: 5 },
+//   { $project: { _id: 0, id: 1, name: 1, rating: "$rating.average" } },
+// ]);
 
 // db.movies.insertOne({ id: 17, name: "Wednesday" });
+
+// ? find top 5 best rated Crime movies
+
+db.movies.aggregate([
+  { $match: { genres: "Crime" } },
+  { $sort: { "rating.average": -1 } },
+  { $limit: 5 },
+  { $project: { name: 1, genres: 1, rating: "$rating.average", _id: 0 } },
+]);
