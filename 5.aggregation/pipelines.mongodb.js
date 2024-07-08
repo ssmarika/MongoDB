@@ -158,7 +158,27 @@ use("kec-crud");
 // ]);
 
 // ? find movies whose genres includes 'Drama' , "Comedy" and "Action"
+// db.movies.aggregate([
+//   { $match: { genres: { $all: ["Drama", "Comedy", "Action"] } } },
+//   { $project: { name: 1, genres: 1, _id: 0 } },
+// ]);
+
+// ? skip
+
+let page = 10;
+let limit = 10;
+let skip = (page - 1) * limit;
+
 db.movies.aggregate([
-  { $match: { genres: { $all: ["Drama", "Comedy", "Action"] } } },
-  { $project: { name: 1, genres: 1, _id: 0 } },
+  { $match: {} },
+  { $sort: { id: 1 } },
+  { $skip: skip },
+  { $limit: limit },
+  { $project: { id: 1, name: 1, _id: 0 } },
 ]);
+
+// skip is used for pagination
+// pagination simply means jumping from one page to another
+// in real life scenarios limit is fixed as we usually only display
+// 20 to 30 items when displayed once
+// skip= (page-1)*limit
