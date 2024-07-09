@@ -111,32 +111,62 @@ use("kec-crud");
 //   ownerId: ObjectId("668bb4736eff4e52ab1f697d"),
 // });
 
-db.person.aggregate([
-  { $match: { firstName: "Rohan" } },
+// db.person.aggregate([
+//   { $match: { firstName: "Rohan" } },
+//   {
+//     $lookup: {
+//       from: "vehicle",
+//       localField: "_id",
+//       foreignField: "ownerId",
+//       as: "vehicleData",
+//     },
+//   },
+//   {
+//     $project: {
+//       firstName: 1,
+//       lastName: 1,
+//       // you may also use first and last in this case
+//       vehicleModel1: { $arrayElemAt: ["$vehicleData.model", 0] },
+//       vehicleBrand1: { $arrayElemAt: ["$vehicleData.brand", 0] },
+//       vehicleModel2: { $arrayElemAt: ["$vehicleData.model", 1] },
+//       vehicleBrand2: { $arrayElemAt: ["$vehicleData.brand", 1] },
+//     },
+//   },
+//   {
+//     $project: {
+//       Name: { $concat: ["$firstName", " ", "$lastName"] },
+//       vehicle1: { $concat: ["$vehicleBrand1", " ", "$vehicleModel1"] },
+//       vehicle2: { $concat: ["$vehicleBrand2", " ", "$vehicleModel2"] },
+//     },
+//   },
+// ]);
+
+// ? find owner of Ford Mustang car
+
+db.vehicle.aggregate([
+  { $match: { model: "Mustang" } },
   {
     $lookup: {
-      from: "vehicle",
-      localField: "_id",
-      foreignField: "ownerId",
-      as: "vehicleData",
+      from: "person",
+      localField: "ownerId",
+      foreignField: "_id",
+      as: "personDetail",
     },
   },
   {
     $project: {
-      firstName: 1,
-      lastName: 1,
-      // you may also use first and last in this case
-      vehicleModel1: { $arrayElemAt: ["$vehicleData.model", 0] },
-      vehicleBrand1: { $arrayElemAt: ["$vehicleData.brand", 0] },
-      vehicleModel2: { $arrayElemAt: ["$vehicleData.model", 1] },
-      vehicleBrand2: { $arrayElemAt: ["$vehicleData.brand", 1] },
+      firstName: { $first: "$personDetail.firstName" },
+      lastName: { $first: "$personDetail.lastName" },
+      model: 1,
+      brand: 1,
+      _id: 0,
     },
   },
   {
     $project: {
-      Name: { $concat: ["$firstName", " ", "$lastName"] },
-      vehicle1: { $concat: ["$vehicleBrand1", " ", "$vehicleModel1"] },
-      vehicle2: { $concat: ["$vehicleBrand2", " ", "$vehicleModel2"] },
+      name: { $concat: ["$firstName", " ", "$lastName"] },
+      model: 1,
+      brand: 1,
     },
   },
 ]);
