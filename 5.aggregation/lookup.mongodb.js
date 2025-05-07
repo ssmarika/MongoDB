@@ -1,7 +1,7 @@
 use("kec-crud");
 // ? lookup
 // to query between collection
-// lookup ko as le data jaile as an array return garcha
+// lookup ko ans le data jaile as an array return garcha so tyo array ko first elemet lai target garna we use $first
 
 // db.person.insertMany([
 //   {
